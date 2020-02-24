@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Spreadsheet to Data Converter</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
@@ -29,8 +29,14 @@
       <height>0</height>
      </size>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::TabFocus</enum>
+    </property>
+    <property name="tabShape">
+     <enum>QTabWidget::Rounded</enum>
+    </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="movable">
      <bool>false</bool>
@@ -42,12 +48,15 @@
      <attribute name="title">
       <string>Start Page</string>
      </attribute>
+     <attribute name="toolTip">
+      <string>Welcome to Spreadsheet to Data Converter's start page</string>
+     </attribute>
      <widget class="QWidget" name="verticalLayoutWidget">
       <property name="geometry">
        <rect>
         <x>70</x>
         <y>40</y>
-        <width>376</width>
+        <width>444</width>
         <height>131</height>
        </rect>
       </property>
@@ -63,12 +72,12 @@
           </font>
          </property>
          <property name="text">
-          <string>Spreadsheet To document converter</string>
+          <string>Spreadsheet to Data Converter's Start Page</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="start_page_btn_open_file">
          <property name="font">
           <font>
            <pointsize>11</pointsize>
@@ -83,9 +92,9 @@
         </widget>
        </item>
        <item alignment="Qt::AlignLeft">
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="btn_load_csv">
          <property name="text">
-          <string>Load CSV/XLXS</string>
+          <string>Load CSV</string>
          </property>
         </widget>
        </item>
@@ -117,7 +126,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="start_page_btn_recent_files">
          <property name="font">
           <font>
            <pointsize>11</pointsize>
@@ -142,10 +151,13 @@
      </widget>
     </widget>
     <widget class="QWidget" name="main_document_tab">
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
      <attribute name="title">
       <string>Main Document</string>
      </attribute>
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="csv_data_table">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -154,56 +166,6 @@
         <height>371</height>
        </rect>
       </property>
-      <row>
-       <property name="text">
-        <string>1</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>2</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>3</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>4</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>5</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>6</string>
-       </property>
-      </row>
-      <column>
-       <property name="text">
-        <string>New Column</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>New Column</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>New Column</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>New Column</string>
-       </property>
-      </column>
      </widget>
     </widget>
    </widget>
