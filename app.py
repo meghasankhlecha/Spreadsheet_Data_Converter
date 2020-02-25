@@ -12,9 +12,15 @@ class TabsContainer(QTabWidget):
         self.tabWidget.setTabsClosable(True)
         self.tabWidget.tabCloseRequested.connect(self.close_tab)
 
+        # Remove Main Tab (index 1) for now
+        self.tabWidget.removeTab(1)
+
         # Composition Tabs container has multiple Tabs inside it
-        self.tabWidget.insertTab(1, QTableWidget(1048576, 2), "Main1 Document")
-        self.tabWidget.insertTab(2, QTableWidget(1048576, 3), "Main2 Document")
+        # self.tabWidget.insertTab(1, QTableWidget(1048576, 2), "Main1 Document")
+        # self.tabWidget.insertTab(2, QTableWidget(1048576, 3), "Main2 Document")
+
+    def add_tab(self, tab):
+        self.tabWidget.insertTab(self.tabWidget.count(), tab.get_tab(), tab.get_tab_title())
 
     def close_tab(self, current_index):
         print("Current Tab Index = ", current_index)
@@ -27,20 +33,59 @@ class TabsContainer(QTabWidget):
         # TODO: Add a Save check before proceeding to close the tab
 
 
-class FinPlateTab(QTableWidget):
-    pass
+class ModuleTab(QTableWidget):
+    max_row_count = 1048576  # Defaults to value used by MS Excel
+
+    def __init__(self, tab_title, tab_columns=None):
+        super(ModuleTab, self).__init__()
+        self.tab = QTableWidget(self.max_row_count, len(tab_columns))
+        self.tab_columns = tab_columns
+
+        # Set header labels
+        self.tab.setHorizontalHeaderLabels(tab_columns)
+
+        self.tab_title = tab_title
+
+    def get_tab_title(self):
+        return self.tab_title
+
+    def get_tab(self):
+        return self.tab
+
+    def get_tab_columns(self):
+        return self.tab_columns
 
 
-class TensionMemberTab(QTableWidget):
-    pass
+class FinPlateTab(ModuleTab):
+    def __init__(self):
+        super(FinPlateTab, self).__init__("FinPlate",
+                                          ["ID", "Connection type", "Axial load", "Shear load", "Bolt diameter",
+                                           "Bolt grade", "Plate thickness"]
+                                          )
 
 
-class BCEndPlateTab(QTableWidget):
-    pass
+class TensionMemberTab(ModuleTab):
+    def __init__(self):
+        super(TensionMemberTab, self).__init__("TensionMember",
+                                               ["ID", "Member length", "Tensile load", "Support condition at End 1",
+                                                "Support condition at End 2"]
+                                               )
 
 
-class CleatAngleTab(QTableWidget):
-    pass
+class BCEndPlateTab(ModuleTab):
+    def __init__(self):
+        super(BCEndPlateTab, self).__init__("BCEndPlate",
+                                            ["ID", "End plate type", "Shear load", "Axial Load", "Moment Load",
+                                             "Bolt diameter", "Bolt grade", "Plate thickness"]
+                                            )
+
+
+class CleatAngleTab(ModuleTab):
+    def __init__(self):
+        super(CleatAngleTab, self).__init__("CleatAngle",
+                                            ["ID", "Angle leg 1", "Angle leg 2", "Angle thickness", "Shear load",
+                                             "Bolt diameter", "Bolt grade"]
+                                            )
 
 
 class DataConverter(QMainWindow):
@@ -51,6 +96,16 @@ class DataConverter(QMainWindow):
 
         # Composition - DataConvertor App has Tabs Container
         self.tabs_container = TabsContainer(self.tabWidget)
+
+        fin_plate_tab = FinPlateTab()
+        tension_member_tab = TensionMemberTab()
+        bcend_plate_tab = BCEndPlateTab()
+        cleat_angle_tab = CleatAngleTab()
+
+        self.tabs_container.add_tab(fin_plate_tab)
+        self.tabs_container.add_tab(tension_member_tab)
+        self.tabs_container.add_tab(bcend_plate_tab)
+        self.tabs_container.add_tab(cleat_angle_tab)
 
         # CALL THE DESIRED VIEW
         self.show()
