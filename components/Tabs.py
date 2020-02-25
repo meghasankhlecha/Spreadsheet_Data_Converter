@@ -1,7 +1,6 @@
 import sys
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QPushButton, QAction, QMessageBox, QTabWidget, \
-    QTableWidget, QTabBar, QMenuBar, QLineEdit, QInputDialog
+from PyQt5.QtWidgets import QTabWidget, QTableWidget, QInputDialog
 
 
 class TabsContainer(QTabWidget):
