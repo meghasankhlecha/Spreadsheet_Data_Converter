@@ -1,4 +1,5 @@
 import sys
+from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QPushButton, QAction, QMessageBox
 
 
@@ -6,14 +7,9 @@ class DataConverter(QMainWindow):
 
     def __init__(self, windowTitle="Spreadsheet to Data Converter"):
         super(DataConverter, self).__init__()
-        self.setGeometry(100, 100, 500, 300)
-        self.setWindowTitle(windowTitle)
+        uic.loadUi('mainwindow.ui', self)
 
         # CALL THE DESIRED VIEW
-        self.home()
-
-    def home(self):
-        # REQUIRED TO SHOW THE WINDOW
         self.show()
 
     # CHANGE THE DEFAULT BEHAVIOUR OF THE CLOSE WINDOW
