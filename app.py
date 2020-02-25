@@ -1,23 +1,29 @@
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QPushButton, QAction, QMessageBox, QTabWidget, \
-    QTableWidget
+    QTableWidget, QTabBar, QMenuBar, QLineEdit, QInputDialog
 
 
 class TabsContainer(QTabWidget):
-    def __init__(self, tabWidget):
+
+    def __init__(self, tabWidget, start_page_tab):
         super(TabsContainer, self).__init__()
         self.tabWidget = tabWidget
+
+        self.start_page_tab = start_page_tab
+
         self.tabWidget.setCurrentIndex(0)
         self.tabWidget.setTabsClosable(True)
+        # self.tabWidget.setStyleSheet("QTabBar::close-button {   image: url(:../icons/close.png);   subcontrol-position: left;   height: 50px;   width: 5px; } QTabBar::close-button:hover { image:url(../icons/close-selected.png);}")
         self.tabWidget.tabCloseRequested.connect(self.close_tab)
 
-        # Remove Main Tab (index 1) for now
-        self.tabWidget.removeTab(1)
+        self.tabWidget.tabBarDoubleClicked.connect(self.tab_rename)
 
-        # Composition Tabs container has multiple Tabs inside it
-        # self.tabWidget.insertTab(1, QTableWidget(1048576, 2), "Main1 Document")
-        # self.tabWidget.insertTab(2, QTableWidget(1048576, 3), "Main2 Document")
+    def tab_rename(self, index):
+        new_tab_name, is_rename_done_clicked = QInputDialog.getText(
+            self, 'Rename Dialog', 'Enter a new tab name:')
+        if is_rename_done_clicked:
+            self.tabWidget.setTabText(index, new_tab_name)
 
     def add_tab(self, tab):
         self.tabWidget.insertTab(self.tabWidget.count(), tab.get_tab(), tab.get_tab_title())
@@ -26,9 +32,10 @@ class TabsContainer(QTabWidget):
         print("Current Tab Index = ", current_index)
         self.tabWidget.removeTab(current_index)
 
-        # TODO: Add a mechanism to show landing page if all the tabs are closed
+        # Show landing page if all tabs are closed
         if self.tabWidget.count() == 0:
             print("All Tabs closed, redirect to landing page")
+            self.tabWidget.insertTab(0, self.start_page_tab, "Start Page")
 
         # TODO: Add a Save check before proceeding to close the tab
 
@@ -92,10 +99,14 @@ class DataConverter(QMainWindow):
 
     def __init__(self, windowTitle="Spreadsheet to Data Converter"):
         super(DataConverter, self).__init__()
-        uic.loadUi('mainwindow.ui', self)
+        uic.loadUi('ui/mainwindow.ui', self)
+
+        # self.menubar.addAction("Validate Data")
+        # self.menubar.addAction("Save Data to text file")
+        # self.menubar.setStyleSheet("QMenuBar::item {border: 1px solid black; margin: 5px; padding: 5px; border-radius:3px;}")
 
         # Composition - DataConvertor App has Tabs Container
-        self.tabs_container = TabsContainer(self.tabWidget)
+        self.tabs_container = TabsContainer(self.tabWidget, self.start_tab)
 
         fin_plate_tab = FinPlateTab()
         tension_member_tab = TensionMemberTab()
