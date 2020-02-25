@@ -2,6 +2,7 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from components.Tabs import TabsContainer, FinPlateTab, TensionMemberTab, BCEndPlateTab, CleatAngleTab
+from components.FileLoaderMultiProcessing import FileLoader
 
 
 class DataConverter(QMainWindow):
@@ -26,6 +27,9 @@ class DataConverter(QMainWindow):
         self.tabs_container.add_tab(tension_member_tab)
         self.tabs_container.add_tab(bcend_plate_tab)
         self.tabs_container.add_tab(cleat_angle_tab)
+
+        file_load = FileLoader(self, fin_plate_tab.get_tab())
+        file_load.load_csv()
 
         # CALL THE DESIRED VIEW
         self.show()
