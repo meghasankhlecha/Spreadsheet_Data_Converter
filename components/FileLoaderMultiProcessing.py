@@ -43,6 +43,7 @@ class Worker(QObject):
             print("Total Rows processed: ", row_index)
         elif FileLoader.is_excel_file(self.file_extension):
             workbook = xlrd.open_workbook(self.file_path[0])
+            # Support only first sheet of excel file at this time
             sheet = workbook.sheet_by_index(0)
 
             print("Max sheet rows:", sheet.nrows)
