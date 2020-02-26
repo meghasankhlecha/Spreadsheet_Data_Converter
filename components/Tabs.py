@@ -54,7 +54,7 @@ class TabsContainer(QTabWidget):
         return self.tabWidget.currentIndex()
 
     def get_current_tab_name(self):
-        self.tabWidget.tabText(self.get_current_tab_index())
+        return self.tabWidget.tabText(self.get_current_tab_index())
 
     def get_current_tab(self):
         return self.tabWidget.currentWidget()
