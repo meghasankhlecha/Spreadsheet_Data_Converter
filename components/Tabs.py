@@ -1,7 +1,7 @@
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QTabWidget, QTableWidget, QInputDialog
-from components.FileLoader import FileLoader
+from components.FileLoaderMultiProcessing import FileLoader
 
 
 class TabsContainer(QTabWidget):
@@ -79,6 +79,7 @@ class ModuleTab(QTableWidget):
         print("Load File called for tab: ", self.tab_module_name)
         self.file_loader = FileLoader(self, self.get_tab())
         self.file_loader.load_csv()
+        print("Finished Loading File")
 
 
 class FinPlateTab(ModuleTab):
