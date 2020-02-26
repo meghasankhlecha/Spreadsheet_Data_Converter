@@ -19,13 +19,23 @@ class TabsContainer(QTabWidget):
         self.tabWidget.tabBarDoubleClicked.connect(self.tab_rename)
 
     def tab_rename(self, index):
-        new_tab_name, is_rename_done_clicked = QInputDialog.getText(
-            self, 'Rename Dialog', 'Enter a new tab name:')
-        if is_rename_done_clicked:
-            self.tabWidget.setTabText(index, new_tab_name)
+        # Only allow renaming if it is not Start Page tab
+        clicked_tab_name = self.tabWidget.tabText(index)
+        print(clicked_tab_name)
+        if clicked_tab_name != "Start Page":
+            new_tab_name, is_rename_done_clicked = QInputDialog.getText(
+                self, 'Rename Dialog', 'Enter a new tab name:')
+            if is_rename_done_clicked:
+                self.tabWidget.setTabText(index, new_tab_name)
 
     def add_tab(self, tab):
+        # Check if only one start page is opened if so close it
+        first_tab_name = self.tabWidget.tabText(0)
+        if first_tab_name == "Start Page":
+            self.tabWidget.removeTab(0)
         self.tabWidget.insertTab(self.tabWidget.count(), tab.get_tab(), tab.get_tab_title())
+        # Set the new opened tab as current
+        self.tabWidget.setCurrentIndex(self.tabWidget.count() - 1)
 
     def close_tab(self, current_index):
         print("Current Tab Index = ", current_index)
