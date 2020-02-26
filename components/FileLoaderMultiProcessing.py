@@ -72,7 +72,7 @@ class FileLoader:
         self.main_window = main_window
 
     def __del__(self):
-        print('Destructor called, Employee deleted.')
+        print('Destructor call check to ensure it fires after complete execution')
 
     @staticmethod
     def is_csv_file(file_extension):
@@ -159,6 +159,9 @@ class FileLoader:
         QApplication.restoreOverrideCursor()
 
         self.thread.quit()
+
+        # Remove pointer to the current FileLoader so it can be GCed
+        self.tab_data_table.setProperty("file_pointer", None)
 
 
 class XlsxLoaderWorker():

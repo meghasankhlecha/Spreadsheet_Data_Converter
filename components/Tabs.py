@@ -2,6 +2,7 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QTabWidget, QTableWidget, QInputDialog
 from components.FileLoaderMultiProcessing import FileLoader
+import random
 
 
 class TabsContainer(QTabWidget):
@@ -14,7 +15,6 @@ class TabsContainer(QTabWidget):
 
         self.tabWidget.setCurrentIndex(0)
         self.tabWidget.setTabsClosable(True)
-        # self.tabWidget.setStyleSheet("QTabBar::close-button {   image: url(:../icons/close.png);   subcontrol-position: left;   height: 50px;   width: 5px; } QTabBar::close-button:hover { image:url(../icons/close-selected.png);}")
         self.tabWidget.tabCloseRequested.connect(self.close_tab)
 
         self.tabWidget.tabBarDoubleClicked.connect(self.tab_rename)
@@ -64,8 +64,6 @@ class ModuleTab(QTableWidget):
     max_row_count = 1048576  # Defaults to value used by MS Excel = 1048576
     tab_module_name = None
 
-    file_loader = None
-
     def __init__(self, tab_title, tab_columns=None):
         super(ModuleTab, self).__init__()
         self.tab = QTableWidget(self.max_row_count, len(tab_columns))
@@ -87,8 +85,12 @@ class ModuleTab(QTableWidget):
 
     def load_file(self):
         print("Load File called for tab: ", self.tab_module_name)
-        self.file_loader = FileLoader(self, self.get_tab())
-        self.file_loader.load_csv()
+        # self.file_loader = FileLoader(self, self.get_tab())
+        # self.file_loader.load_csv()
+        # This will ensure that the file pointer is not destroyed before completion of loading
+        # This will keep the FileLoader in memory till the finished signal is emitted avoid garbage collection
+        self.get_tab().setProperty("file_pointer", FileLoader(self, self.get_tab()))
+        self.get_tab().property("file_pointer").load_csv()
         print("Finished Loading File")
 
 
