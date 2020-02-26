@@ -3,37 +3,23 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from components.Tabs import TabsContainer, FinPlateTab, TensionMemberTab, BCEndPlateTab, CleatAngleTab
-from components.FileLoader import FileLoader
+from components.DataValidator import DataValidator
 
 
 class DataConverter(QMainWindow):
 
     def __init__(self, windowTitle="Spreadsheet to Data Converter"):
         super(DataConverter, self).__init__()
-        # uic.loadUi('ui/mainwindow.ui', self)
         # define UI file paths
         RESOURCE_PATH = os.path.dirname(__file__)  # <-- absolute dir the script is in
         mainwindowui_file = os.path.join(RESOURCE_PATH, "ui/mainwindow.ui")
         uic.loadUi(mainwindowui_file, self)
-        # self.menubar.addAction("Validate Data")
-        # self.menubar.addAction("Save Data to text file")
-        # self.menubar.setStyleSheet("QMenuBar::item {border: 1px solid black; margin: 5px; padding: 5px; border-radius:3px;}")
 
         # Composition - DataConvertor App has Tabs Container
         self.tabs_container = TabsContainer(self.tabWidget, self.start_tab)
 
-        # fin_plate_tab = FinPlateTab()
-        # tension_member_tab = TensionMemberTab()
-        # bcend_plate_tab = BCEndPlateTab()
-        # cleat_angle_tab = CleatAngleTab()
-        #
-        # self.tabs_container.add_tab(fin_plate_tab)
-        # self.tabs_container.add_tab(tension_member_tab)
-        # self.tabs_container.add_tab(bcend_plate_tab)
-        # self.tabs_container.add_tab(cleat_angle_tab)
-        #
-        # file_load = FileLoader(self, fin_plate_tab.get_tab())
-        # file_load.load_csv()
+        self.menu_action_validate_data = self.menubar.addAction("Validate Data")
+        self.menu_action_save_data = self.menubar.addAction("Save Data to text file")
 
         self.set_connections()
 
@@ -70,6 +56,9 @@ class DataConverter(QMainWindow):
         self.push_btn_bc_end_plate.clicked.connect(self.load_bc_end_plate)
         self.push_btn_cleat_angle.clicked.connect(self.load_cleat_angle)
 
+        # Menubar actions
+        self.menu_action_validate_data.triggered.connect(self.validate_current_tab_data)
+
     def load_fin_plate(self):
         # Open file action for Fin Plate Tab
         fin_plate_tab = FinPlateTab()
@@ -102,6 +91,11 @@ class DataConverter(QMainWindow):
 
     def load_blank_cleat_angle(self):
         self.tabs_container.add_tab(CleatAngleTab())
+
+    def validate_current_tab_data(self):
+        print("Validating current tab")
+        if self.tabs_container.get_current_tab_name() != "Start Page":
+            DataValidator.is_valid(self.tabs_container.get_current_tab())
 
 
 def run():
