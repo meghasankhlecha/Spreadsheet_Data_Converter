@@ -94,8 +94,9 @@ class DataConverter(QMainWindow):
 
     def validate_current_tab_data(self):
         print("Validating current tab")
-        if self.tabs_container.get_current_tab_name() != "Start Page":
-            DataValidator.is_valid(self.tabs_container.get_current_tab())
+        current_tab_name = self.tabs_container.get_current_tab_name()
+        if current_tab_name != "Start Page":
+            DataValidator.is_valid(self.tabs_container.get_current_tab(), current_tab_name)
 
 
 def run():
