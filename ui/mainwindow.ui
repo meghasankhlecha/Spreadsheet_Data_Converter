@@ -243,7 +243,7 @@ background-color: #e5e5e5;
                  <number>5</number>
                 </property>
                 <item alignment="Qt::AlignRight|Qt::AlignVCenter">
-                 <widget class="QPushButton" name="pushButton_2">
+                 <widget class="QPushButton" name="push_btn_fin_plate">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -268,7 +268,7 @@ background-color: #e5e5e5;
                  </widget>
                 </item>
                 <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
-                 <widget class="QPushButton" name="pushButton">
+                 <widget class="QPushButton" name="push_btn_tension_member">
                   <property name="enabled">
                    <bool>true</bool>
                   </property>
@@ -300,7 +300,7 @@ background-color: #e5e5e5;
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_4">
                 <item alignment="Qt::AlignRight|Qt::AlignVCenter">
-                 <widget class="QPushButton" name="pushButton_4">
+                 <widget class="QPushButton" name="push_btn_bc_end_plate">
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
@@ -313,7 +313,7 @@ background-color: #e5e5e5;
                  </widget>
                 </item>
                 <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
-                 <widget class="QPushButton" name="pushButton_3">
+                 <widget class="QPushButton" name="push_btn_cleat_angle">
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
@@ -393,7 +393,7 @@ background-color: #e5e5e5;
       <string>&amp;Load Inputs</string>
      </property>
      <addaction name="action_load_fin_plate"/>
-     <addaction name="action_load_tension_member_plate"/>
+     <addaction name="action_load_tension_member"/>
      <addaction name="action_load_bc_end_plate"/>
      <addaction name="action_load_cleat_angle"/>
     </widget>
@@ -402,7 +402,7 @@ background-color: #e5e5e5;
       <string>Open Blank Tab</string>
      </property>
      <addaction name="action_blank_fin_plate"/>
-     <addaction name="action_blank_tension_member_plate"/>
+     <addaction name="action_blank_tension_member"/>
      <addaction name="action_blank_bc_end_plate"/>
      <addaction name="action_blank_cleat_angle"/>
     </widget>
@@ -592,7 +592,7 @@ border-color: transparent #ccc transparent transparent
     <string>&amp;Fin Plate</string>
    </property>
   </action>
-  <action name="action_load_tension_member_plate">
+  <action name="action_load_tension_member">
    <property name="text">
     <string>&amp;Tension Member</string>
    </property>
@@ -612,7 +612,7 @@ border-color: transparent #ccc transparent transparent
     <string>&amp;Fin Plate</string>
    </property>
   </action>
-  <action name="action_blank_tension_member_plate">
+  <action name="action_blank_tension_member">
    <property name="text">
     <string>&amp;Tension Member</string>
    </property>

@@ -54,36 +54,51 @@ class DataConverter(QMainWindow):
             sys.exit()
 
     def set_connections(self):
+        # File Menu
         self.action_load_fin_plate.triggered.connect(self.load_fin_plate)
         self.action_blank_fin_plate.triggered.connect(self.load_blank_fin_plate)
-        self.action_load_tension_member_plate.triggered.connect(self.load_tension_member_plate)
-        self.action_blank_tension_member_plate.triggered.connect(self.load_blank_tension_member_plate)
+        self.action_load_tension_member.triggered.connect(self.load_tension_member)
+        self.action_blank_tension_member.triggered.connect(self.load_blank_tension_member)
         self.action_load_bc_end_plate.triggered.connect(self.load_bc_end_plate)
         self.action_blank_bc_end_plate.triggered.connect(self.load_blank_bc_end_plate)
         self.action_load_cleat_angle.triggered.connect(self.load_cleat_angle)
         self.action_blank_cleat_angle.triggered.connect(self.load_blank_cleat_angle)
 
+        # Start Page Push Buttons for modules
+        self.push_btn_fin_plate.clicked.connect(self.load_fin_plate)
+        self.push_btn_tension_member.clicked.connect(self.load_tension_member)
+        self.push_btn_bc_end_plate.clicked.connect(self.load_bc_end_plate)
+        self.push_btn_cleat_angle.clicked.connect(self.load_cleat_angle)
+
     def load_fin_plate(self):
         # Open file action for Fin Plate Tab
-        pass
+        fin_plate_tab = FinPlateTab()
+        self.tabs_container.add_tab(fin_plate_tab)
+        fin_plate_tab.load_file()
 
     def load_blank_fin_plate(self):
         self.tabs_container.add_tab(FinPlateTab())
 
-    def load_tension_member_plate(self):
-        pass
+    def load_tension_member(self):
+        tension_member = TensionMemberTab()
+        self.tabs_container.add_tab(tension_member)
+        tension_member.load_file()
 
-    def load_blank_tension_member_plate(self):
+    def load_blank_tension_member(self):
         self.tabs_container.add_tab(TensionMemberTab())
 
     def load_bc_end_plate(self):
-        pass
+        bc_end_plate = BCEndPlateTab()
+        self.tabs_container.add_tab(bc_end_plate)
+        bc_end_plate.load_file()
 
     def load_blank_bc_end_plate(self):
         self.tabs_container.add_tab(BCEndPlateTab())
 
     def load_cleat_angle(self):
-        pass
+        cleat_angle = CleatAngleTab()
+        self.tabs_container.add_tab(cleat_angle)
+        cleat_angle.load_file()
 
     def load_blank_cleat_angle(self):
         self.tabs_container.add_tab(CleatAngleTab())

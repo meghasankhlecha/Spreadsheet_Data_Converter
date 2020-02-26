@@ -1,6 +1,7 @@
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QTabWidget, QTableWidget, QInputDialog
+from components.FileLoader import FileLoader
 
 
 class TabsContainer(QTabWidget):
@@ -53,6 +54,8 @@ class ModuleTab(QTableWidget):
     max_row_count = 1048576  # Defaults to value used by MS Excel
     tab_module_name = None
 
+    file_loader = None
+
     def __init__(self, tab_title, tab_columns=None):
         super(ModuleTab, self).__init__()
         self.tab = QTableWidget(self.max_row_count, len(tab_columns))
@@ -71,6 +74,11 @@ class ModuleTab(QTableWidget):
 
     def get_tab_columns(self):
         return self.tab_columns
+
+    def load_file(self):
+        print("Load File called for tab: ", self.tab_module_name)
+        self.file_loader = FileLoader(self, self.get_tab())
+        self.file_loader.load_csv()
 
 
 class FinPlateTab(ModuleTab):

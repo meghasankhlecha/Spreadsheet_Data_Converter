@@ -34,7 +34,7 @@ class FileLoader:
                 # column_headers = next(csv_file_read)
                 row_index = 0
                 for row_data in csv_file_read:
-                    print("Row = ",row_index)
+                    print("Row = ", row_index)
                     # row = self.csv_data_table.rowCount()
                     # self.csv_data_table.insertRow(row)
                     # self.csv_data_table.setColumnCount(len(row_data))
@@ -44,12 +44,11 @@ class FileLoader:
                         self.csv_data_table.setItem(row_index, column, item)
                     row_index = row_index + 1
 
-
             # Set WordWrap to True to make the cells change height according to content
             # Currently set it to false as it looks very decent and makes cell size uniform throughout
             # self.csv_data_table.setWordWrap(False)
             # Uncomment below line to stretch to fill the column width according to content
-            # self.csv_data_table.resizeColumnsToContents()
+            self.csv_data_table.resizeColumnsToContents()
 
             self.check_cell_change = True
 
