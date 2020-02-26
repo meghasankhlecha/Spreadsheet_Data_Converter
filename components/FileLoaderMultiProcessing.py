@@ -8,13 +8,21 @@ import csv
 import xlrd
 
 
-class FileLoader:
+class FileLoader():
     def __init__(self, main_window, tab_data_table):
+        super(FileLoader, self).__init__()
         self.tab_data_table = tab_data_table
         self.main_window = main_window
 
-    # Threaded functions for multi threading the loading for handling large files
+    def __del__(self):
+        print('Destructor called, Employee deleted.')
+
+        # Threaded functions for multi threading the loading for handling large files
     def on_loading_finish(self):
+        print("on_loading_finish_called")
+        print("Column Resize")
+        # Stretch to fill the column width according to content
+        self.tab_data_table.resizeColumnsToContents()
         # Change the cursor back to normal
         QApplication.restoreOverrideCursor()
         self.loading_thread.quit()
@@ -75,7 +83,6 @@ class FileLoader:
                 self.loading_worker = CsvLoaderWorker(csv_file_path=loaded_file_path,
                                                       csv_data_table=self.tab_data_table)
             elif self.is_excel_file(file_extension):
-                print("XLSX FILE")
                 self.loading_worker = XlsxLoaderWorker(xlsx_file_path=loaded_file_path,
                                                        xlsx_data_table=self.tab_data_table)
 
@@ -126,7 +133,6 @@ class CsvLoaderWorker(QObject):
             # print("LEN = ", len(csv_file.readlines()))
             self.progress_max.emit(len(csv_file.readlines()) - 1)
 
-        print("Progress is obtained")
         # TODO: Increase the reading speed by decreasing load on actual table population
         #
         # self.csv_data_table.hide()
@@ -139,7 +145,7 @@ class CsvLoaderWorker(QObject):
 
             row_index = 0
             for row_data in csv_file_read:
-                print("Row = ", row_index)
+                # print("Row = ", row_index)
                 self.relay.emit(row_index)
 
                 for column, stuff in enumerate(row_data):
@@ -148,13 +154,16 @@ class CsvLoaderWorker(QObject):
                     self.csv_data_table.setItem(row_index, column, item)
                 row_index = row_index + 1
 
-        # Stretch to fill the column width according to content
-        self.csv_data_table.resizeColumnsToContents()
-
         # Update the bottom toolbar to reflect changes
         # self.update_bottom_toolbar.emit()
         print("Emitting finish")
         self.finished.emit()
+        print("Post emitting finish")
+        self.progress_max.emit(9999)
+
+        # print("Column Resize")
+        # Stretch to fill the column width according to content
+        # self.csv_data_table.resizeColumnsToContents()
 
 
 class XlsxLoaderWorker(QObject):
@@ -197,17 +206,14 @@ class XlsxLoaderWorker(QObject):
         for rowx in range(sheet.nrows):
             self.relay.emit(rowx)
             cols = sheet.row_values(rowx)
-            print("Cols:", cols)
+            # print("Cols:", cols)
             col_index = 0
             for col in cols:
                 # Do a string conversion as widget accepts only strings
                 item = QTableWidgetItem(str(col))
-                print(item.text())
+                # print(item.text())
                 self.xlsx_data_table.setItem(rowx, col_index, item)
                 col_index += 1
-
-        # Stretch to fill the column width according to content
-        self.xlsx_data_table.resizeColumnsToContents()
 
         # Update the bottom toolbar to reflect changes
         # self.update_bottom_toolbar.emit()
