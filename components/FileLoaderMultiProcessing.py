@@ -122,7 +122,7 @@ class CsvLoaderWorker(QObject):
         print("Inside loading file")
 
         # Open the file once to get idea of the total rowcount to display progress
-        with open(self.csv_file_path[0], newline='', encoding="utf-8") as csv_file:
+        with open(self.csv_file_path[0], newline='') as csv_file:
             # print("LEN = ", len(csv_file.readlines()))
             self.progress_max.emit(len(csv_file.readlines()) - 1)
 
@@ -131,7 +131,7 @@ class CsvLoaderWorker(QObject):
         #
         # self.csv_data_table.hide()
 
-        with open(self.csv_file_path[0], newline='', encoding="utf-8") as csv_file:
+        with open(self.csv_file_path[0], newline='') as csv_file:
 
             print("Opened file for reading")
 
