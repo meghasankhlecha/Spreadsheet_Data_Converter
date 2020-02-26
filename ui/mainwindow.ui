@@ -389,6 +389,11 @@ background-color: #e5e5e5;
      <string>&amp;File</string>
     </property>
     <widget class="QMenu" name="menu_load_file">
+     <property name="font">
+      <font>
+       <family>Arial</family>
+      </font>
+     </property>
      <property name="title">
       <string>&amp;Load Inputs</string>
      </property>
@@ -398,6 +403,11 @@ background-color: #e5e5e5;
      <addaction name="action_load_cleat_angle"/>
     </widget>
     <widget class="QMenu" name="menu_open_blank_tab">
+     <property name="font">
+      <font>
+       <family>Arial</family>
+      </font>
+     </property>
      <property name="title">
       <string>Open Blank Tab</string>
      </property>
@@ -415,6 +425,7 @@ background-color: #e5e5e5;
    <widget class="QMenu" name="menu_validate_data">
     <property name="font">
      <font>
+      <family>Arial</family>
       <underline>false</underline>
      </font>
     </property>
@@ -429,6 +440,11 @@ background-color: #e5e5e5;
     </property>
    </widget>
    <widget class="QMenu" name="menu_save_file">
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
     <property name="title">
      <string>Save current tab to Text File</string>
     </property>
@@ -469,7 +485,9 @@ border-color: transparent #ccc transparent transparent
     <string>&amp;Close current tab</string>
    </property>
    <property name="font">
-    <font/>
+    <font>
+     <family>Arial</family>
+    </font>
    </property>
   </action>
   <action name="action_save_file">
@@ -490,6 +508,11 @@ border-color: transparent #ccc transparent transparent
   <action name="action_exit">
    <property name="text">
     <string>&amp;Exit</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+    </font>
    </property>
   </action>
   <action name="action_add_data">
@@ -591,40 +614,80 @@ border-color: transparent #ccc transparent transparent
    <property name="text">
     <string>&amp;Fin Plate</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+    </font>
+   </property>
   </action>
   <action name="action_load_tension_member">
    <property name="text">
     <string>&amp;Tension Member</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+    </font>
    </property>
   </action>
   <action name="action_load_bc_end_plate">
    <property name="text">
     <string>&amp;BC End Plate</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+    </font>
+   </property>
   </action>
   <action name="action_load_cleat_angle">
    <property name="text">
     <string>&amp;Cleat Angle</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+    </font>
    </property>
   </action>
   <action name="action_blank_fin_plate">
    <property name="text">
     <string>&amp;Fin Plate</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+    </font>
+   </property>
   </action>
   <action name="action_blank_tension_member">
    <property name="text">
     <string>&amp;Tension Member</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+    </font>
    </property>
   </action>
   <action name="action_blank_bc_end_plate">
    <property name="text">
     <string>&amp;BC End Plate</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+    </font>
+   </property>
   </action>
   <action name="action_blank_cleat_angle">
    <property name="text">
     <string>&amp;Cleat Angle</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+    </font>
    </property>
   </action>
  </widget>

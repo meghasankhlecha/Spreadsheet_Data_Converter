@@ -5,11 +5,12 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QTableWidget
 import os
 import sys
 import csv
+import xlrd
 
 
 class FileLoader:
-    def __init__(self, main_window, csv_data_table):
-        self.csv_data_table = csv_data_table
+    def __init__(self, main_window, tab_data_table):
+        self.tab_data_table = tab_data_table
         self.main_window = main_window
 
     # Threaded functions for multi threading the loading for handling large files
@@ -27,23 +28,39 @@ class FileLoader:
         self.loading_progress.setMaximum(max_value)
         self.loading_progress.setValue(0)
 
+    def is_csv_file(self, file_extension):
+        return file_extension.lower() == ".csv"
+
+    def is_excel_file(self, file_extension):
+        return file_extension.lower() == ".xlsx"
+
     def load_csv(self):
         """
         Loads the file from file selector to a table
         closes any open file if any before opening new file
         """
 
-        csv_file_path = QFileDialog.getOpenFileName(self.main_window, "Load CSV File", "", 'CSV(*.csv)')
+        loaded_file_path = QFileDialog.getOpenFileName(self.main_window, "Load File", "",
+                                                       'CSV/XLSX(*.csv *.xlsx);;CSV(*.csv);; XLSX(*.xlsx)')
+
+        print("File path: ", loaded_file_path)
+        filename, file_extension = os.path.splitext(loaded_file_path[0])
+        print("Extensions: ", file_extension)
 
         # Proceed if and only if a valid file is selected and the file dialog is not cancelled
-        if csv_file_path[0]:
+        if loaded_file_path[0]:
             # Get only the file name from path. eg. 'data_file.csv'
-            filepath = os.path.normpath(csv_file_path[0])
+            filepath = os.path.normpath(loaded_file_path[0])
             filename = filepath.split(os.sep)
             self.csv_file_name = filename[-1]
 
             self.loading_progress = QProgressDialog("Reading Rows. Please wait...", None, 0, 100, self.main_window)
-            self.loading_progress.setWindowTitle("Loading CSV File...")
+
+            if self.is_csv_file(file_extension):
+                self.loading_progress.setWindowTitle("Loading CSV File...")
+            elif self.is_excel_file(file_extension):
+                self.loading_progress.setWindowTitle("Loading XLSX File...")
+
             self.loading_progress.setCancelButton(None)
 
             # enable custom window hint
@@ -54,11 +71,13 @@ class FileLoader:
             # Show waiting cursor till the time file is being processed
             QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
 
-            print("Before worker is initialized")
-
-            self.loading_worker = CsvLoaderWorker(csv_file_path=csv_file_path, csv_data_table=self.csv_data_table)
-
-            print("Worker is initialized")
+            if self.is_csv_file(file_extension):
+                self.loading_worker = CsvLoaderWorker(csv_file_path=loaded_file_path,
+                                                      csv_data_table=self.tab_data_table)
+            elif self.is_excel_file(file_extension):
+                print("XLSX FILE")
+                self.loading_worker = XlsxLoaderWorker(xlsx_file_path=loaded_file_path,
+                                                       xlsx_data_table=self.tab_data_table)
 
             self.loading_thread = QThread()
             # Set higher priority to the GUI Thread so UI remains a bit smoother
@@ -131,6 +150,64 @@ class CsvLoaderWorker(QObject):
 
         # Stretch to fill the column width according to content
         self.csv_data_table.resizeColumnsToContents()
+
+        # Update the bottom toolbar to reflect changes
+        # self.update_bottom_toolbar.emit()
+        print("Emitting finish")
+        self.finished.emit()
+
+
+class XlsxLoaderWorker(QObject):
+    workRequested = pyqtSignal()
+    finished = pyqtSignal()
+    relay = pyqtSignal(int)
+    progress_max = pyqtSignal(int)
+
+    # update_bottom_toolbar = pyqtSignal()
+
+    def __init__(self, xlsx_file_path, xlsx_data_table, parent=None):
+        super(XlsxLoaderWorker, self).__init__(parent)
+        self.xlsx_file_path = xlsx_file_path
+        self.xlsx_data_table = xlsx_data_table
+
+    def request_work(self):
+        """
+        Signal to begin the loading process
+        """
+        self.workRequested.emit()
+
+    def process_loading_file(self):
+        """
+        Starts the thread for populating table from the file without blocking the main UI thread
+        """
+        print("Inside loading file")
+
+        workbook = xlrd.open_workbook(self.xlsx_file_path[0])
+        sheet = workbook.sheet_by_index(0)
+        # for rowx in range(sheet.nrows):
+        #     cols = sheet.row_values(rowx)
+        #     print(cols)
+        #     for col in cols:
+        #         print(col)
+
+        # Open the file once to get idea of the total rowcount to display progress
+        print("Max sheet rows:", sheet.nrows)
+        self.progress_max.emit(sheet.nrows - 1)
+
+        for rowx in range(sheet.nrows):
+            self.relay.emit(rowx)
+            cols = sheet.row_values(rowx)
+            print("Cols:", cols)
+            col_index = 0
+            for col in cols:
+                # Do a string conversion as widget accepts only strings
+                item = QTableWidgetItem(str(col))
+                print(item.text())
+                self.xlsx_data_table.setItem(rowx, col_index, item)
+                col_index += 1
+
+        # Stretch to fill the column width according to content
+        self.xlsx_data_table.resizeColumnsToContents()
 
         # Update the bottom toolbar to reflect changes
         # self.update_bottom_toolbar.emit()
