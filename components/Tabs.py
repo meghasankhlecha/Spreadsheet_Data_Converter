@@ -34,6 +34,7 @@ class TabsContainer(QTabWidget):
         first_tab_name = self.tabWidget.tabText(0)
         if first_tab_name == "Start Page":
             self.tabWidget.removeTab(0)
+
         self.tabWidget.insertTab(self.tabWidget.count(), tab.get_tab(), tab.get_tab_title())
         # Set the new opened tab as current
         self.tabWidget.setCurrentIndex(self.tabWidget.count() - 1)
@@ -49,9 +50,18 @@ class TabsContainer(QTabWidget):
 
         # TODO: Add a Save check before proceeding to close the tab
 
+    def get_current_tab_index(self):
+        return self.tabWidget.currentIndex()
+
+    def get_current_tab_name(self):
+        self.tabWidget.tabText(self.get_current_tab_index())
+
+    def get_current_tab(self):
+        return self.tabWidget.currentWidget()
+
 
 class ModuleTab(QTableWidget):
-    max_row_count = 1048576  # Defaults to value used by MS Excel
+    max_row_count = 1048576  # Defaults to value used by MS Excel = 1048576
     tab_module_name = None
 
     file_loader = None
