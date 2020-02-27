@@ -22,8 +22,9 @@ class DataConverter(QMainWindow):
         self.menu_action_save_data.setEnabled(False)
 
         # Composition - DataConvertor App has Tabs Container
-        self.tabs_container = TabsContainer(self.tabWidget, self.start_tab, self.menu_action_save_data,
-                                            self.menu_action_validate_data)
+        self.tabs_container = TabsContainer(main_window=self, tabWidget=self.tabWidget, start_page_tab=self.start_tab,
+                                            menu_action_save_data=self.menu_action_save_data,
+                                            menu_action_validate_data=self.menu_action_validate_data)
 
         # Set the slots for various menu items and buttons
         self.set_connections()

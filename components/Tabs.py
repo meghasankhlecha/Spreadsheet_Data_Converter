@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QTabWidget, QTableWidget, QInputDialog
+from PyQt5.QtWidgets import QTabWidget, QTableWidget, QInputDialog, QMessageBox
 from components.FileLoaderMultiProcessing import FileLoader
 
 
@@ -14,8 +14,10 @@ class Singleton(type(QTabWidget)):
 # Allow only one instance of TabsContainer - Singleton Pattern
 class TabsContainer(QTabWidget, metaclass=Singleton):
 
-    def __init__(self, tabWidget, start_page_tab, menu_action_validate_data, menu_action_save_data):
+    def __init__(self, main_window, tabWidget, start_page_tab, menu_action_validate_data, menu_action_save_data):
         super(TabsContainer, self).__init__()
+        self.main_window = main_window
+
         self.tabWidget = tabWidget
 
         self.start_page_tab = start_page_tab
@@ -34,9 +36,12 @@ class TabsContainer(QTabWidget, metaclass=Singleton):
         clicked_tab_name = self.tabWidget.tabText(index)
         if clicked_tab_name != "Start Page":
             new_tab_name, is_rename_done_clicked = QInputDialog.getText(
-                self, 'Rename Dialog', 'Enter a new tab name:')
+                self.main_window, 'Rename Tab', 'Enter a new tab name:')
             if is_rename_done_clicked:
                 self.tabWidget.setTabText(index, new_tab_name)
+
+    def is_start_tab(self):
+        return self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Start Page"
 
     def add_tab(self, tab):
         # Check if only one start page is opened if so close it
@@ -57,7 +62,12 @@ class TabsContainer(QTabWidget, metaclass=Singleton):
 
     def close_tab(self, current_index):
         print("Current Tab Index = ", current_index)
-        self.tabWidget.removeTab(current_index)
+        if not self.is_start_tab():
+            choice = QMessageBox.question(self.main_window, 'Close Tab',
+                                          "Are you sure you want to close the current tab?",
+                                          QMessageBox.Yes | QMessageBox.No)
+            if choice == QMessageBox.Yes:
+                self.tabWidget.removeTab(current_index)
 
         # Show landing page if all tabs are closed
         if self.tabWidget.count() == 0:
