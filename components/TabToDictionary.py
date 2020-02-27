@@ -30,7 +30,6 @@ class TabToDictionary:
                     # Check if the cell is not empty
                     if item and item.text():
                         is_complete_row_empty = False
-                        # print(item.text(), end=", ")
                         dict_to_save[header_names[col_index]] = item.text()
 
                         if col_index == 0:

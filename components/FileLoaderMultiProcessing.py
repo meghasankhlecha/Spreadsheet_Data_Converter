@@ -1,8 +1,7 @@
-from PyQt5 import uic, QtCore
+from PyQt5 import QtCore
 from PyQt5.QtCore import QObject, pyqtSignal, QThread, pyqtSlot
-from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QTableWidgetItem, QProgressDialog, QLabel, QWidget
+from PyQt5.QtWidgets import QApplication, QFileDialog, QTableWidgetItem, QProgressDialog
 import os
-import sys
 import csv
 import xlrd
 
@@ -56,13 +55,9 @@ class Worker(QObject):
                 for col in cols:
                     # Do a string conversion as widget accepts only strings
                     self.read_values.emit(rowx, col_index, str(col))
-                    # item = QTableWidgetItem(str(col))
-                    # self.xlsx_data_table.setItem(rowx, col_index, item)
                     col_index += 1
 
-        # Update the bottom toolbar to reflect changes
-        # self.update_bottom_toolbar.emit()
-        print("Emitting finish")
+        print("File loading finish signal emitted")
         self.finished.emit()
 
 
@@ -92,7 +87,6 @@ class FileLoader:
                                                        'csv or xlxs(*.csv *.xlsx);;CSV(*.csv);; XLSX(*.xlsx)')
 
         filename, self.file_extension = os.path.splitext(loaded_file_path[0])
-        print("Extensions: ", self.file_extension)
 
         # Proceed if and only if a valid file is selected and the file dialog is not cancelled
         if loaded_file_path[0]:
@@ -143,7 +137,6 @@ class FileLoader:
         self.loading_progress.setWindowFlags(self.loading_progress.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
 
     def set_progress_value(self, val):
-        print("update:", val)
         self.loading_progress.setValue(val)
 
     def set_max_progress_value(self, val):
@@ -163,35 +156,3 @@ class FileLoader:
 
         # Remove pointer to the current FileLoader so it can be GCed
         self.tab_data_table.setProperty("file_pointer", None)
-
-
-class XlsxLoaderWorker():
-
-    def __init__(self, xlsx_file_path, xlsx_data_table, parent=None):
-        self.xlsx_file_path = xlsx_file_path
-        self.xlsx_data_table = xlsx_data_table
-        self.process_loading_file()
-
-    def process_loading_file(self):
-        """
-        Starts the thread for populating table from the file without blocking the main UI thread
-        """
-        print("Inside loading file")
-
-        workbook = xlrd.open_workbook(self.xlsx_file_path[0])
-        sheet = workbook.sheet_by_index(0)
-
-        for rowx in range(sheet.nrows):
-            cols = sheet.row_values(rowx)
-            # print("Cols:", cols)
-            col_index = 0
-            for col in cols:
-                # Do a string conversion as widget accepts only strings
-                item = QTableWidgetItem(str(col))
-                # print(item.text())
-                self.xlsx_data_table.setItem(rowx, col_index, item)
-                col_index += 1
-
-        print("Column Resize")
-        # Stretch to fill the column width according to content
-        self.xlsx_data_table.resizeColumnsToContents()

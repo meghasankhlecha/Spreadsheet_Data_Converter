@@ -1,8 +1,5 @@
-import sys
-from PyQt5 import uic
 from PyQt5.QtWidgets import QTabWidget, QTableWidget, QInputDialog
 from components.FileLoaderMultiProcessing import FileLoader
-import random
 
 
 class TabsContainer(QTabWidget):
@@ -25,7 +22,6 @@ class TabsContainer(QTabWidget):
     def tab_rename(self, index):
         # Only allow renaming if it is not Start Page tab
         clicked_tab_name = self.tabWidget.tabText(index)
-        print(clicked_tab_name)
         if clicked_tab_name != "Start Page":
             new_tab_name, is_rename_done_clicked = QInputDialog.getText(
                 self, 'Rename Dialog', 'Enter a new tab name:')
@@ -101,13 +97,10 @@ class ModuleTab(QTableWidget):
 
     def load_file(self):
         print("Load File called for tab: ", self.tab_module_name)
-        # self.file_loader = FileLoader(self, self.get_tab())
-        # self.file_loader.load_csv()
         # This will ensure that the file pointer is not destroyed before completion of loading
         # This will keep the FileLoader in memory till the finished signal is emitted avoid garbage collection
         self.get_tab().setProperty("file_pointer", FileLoader(self, self.get_tab()))
         self.get_tab().property("file_pointer").load_csv()
-        print("Finished Loading File")
 
 
 class FinPlateTab(ModuleTab):

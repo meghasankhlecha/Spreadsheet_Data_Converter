@@ -1,4 +1,3 @@
-from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
 
@@ -71,9 +70,6 @@ class DataValidator():
 
     @staticmethod
     def is_valid(tab, tab_name, proceed_to_save=False):
-        print("Validator class:", tab_name)
-        print(tab.rowCount(), tab.columnCount())
-
         is_error_incurred = False
 
         id_set = set()
@@ -88,7 +84,7 @@ class DataValidator():
 
                 # Check if the cell is not empty
                 if item and item.text():
-                    print(item.text(), end=", ")
+                    # print(item.text(), end=", ")
                     is_complete_row_empty = False
 
                     if not DataValidator.is_number(item.text()):

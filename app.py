@@ -22,10 +22,10 @@ class DataConverter(QMainWindow):
         self.menu_action_save_data.setEnabled(False)
 
         # Composition - DataConvertor App has Tabs Container
-        self.tabs_container = TabsContainer(self.tabWidget, self.start_tab, self.menu_action_save_data, self.menu_action_validate_data)
+        self.tabs_container = TabsContainer(self.tabWidget, self.start_tab, self.menu_action_save_data,
+                                            self.menu_action_validate_data)
 
-
-
+        # Set the slots for various menu items and buttons
         self.set_connections()
 
         # CALL THE DESIRED VIEW
@@ -37,7 +37,7 @@ class DataConverter(QMainWindow):
         self.close_application()
 
     def close_application(self):
-        # ADD CONFIRM POPUP
+        # Confirm before quiting
         choice = QMessageBox.question(self, 'Quit', "Are you sure you want to quit?",
                                       QMessageBox.Yes | QMessageBox.No)
         if choice == QMessageBox.Yes:
@@ -99,7 +99,6 @@ class DataConverter(QMainWindow):
         self.tabs_container.add_tab(CleatAngleTab())
 
     def validate_current_tab_data(self, proceed_to_save=False):
-        print("Validating current tab")
         current_tab_name = self.tabs_container.get_current_tab_name()
         if current_tab_name != "Start Page":
             return DataValidator.is_valid(tab=self.tabs_container.get_current_tab(), tab_name=current_tab_name,
@@ -109,7 +108,6 @@ class DataConverter(QMainWindow):
     def save_current_tab_data(self):
         # Process only if the data in current tab is valid
         if self.validate_current_tab_data(proceed_to_save=True):
-            print("Proceeding to Save the Data")
             current_tab_name = self.tabs_container.get_current_tab_name()
             TabToDictionary.tab_data_to_dict(main_window=self, tab=self.tabs_container.get_current_tab(),
                                              tab_name=current_tab_name)
