@@ -23,6 +23,17 @@ class DataValidator():
         msg.exec_()
 
     @staticmethod
+    def show_file_empty_error(tab_name):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Critical)
+        msg.setText("Empty File Error")
+        error_msg = "The content of the spreadsheet can not be blank, and thus can not be validated.\n\nError in {} Tab".format(
+            tab_name)
+        msg.setInformativeText(error_msg)
+        msg.setWindowTitle("Validation Error")
+        msg.exec_()
+
+    @staticmethod
     def show_missing_value_error(tab_name, header_name, row, col):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Critical)
@@ -100,6 +111,9 @@ class DataValidator():
                     is_missing_value = (True, col_index)
 
             if is_complete_row_empty:
+                if row_index == 0:
+                    is_error_incurred = True
+                    DataValidator.show_file_empty_error(tab_name)
                 break
 
             if is_missing_value[0]:
