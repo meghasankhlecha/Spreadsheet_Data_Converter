@@ -2,9 +2,9 @@ import os
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
-from components.Tabs import TabsContainer, FinPlateTab, TensionMemberTab, BCEndPlateTab, CleatAngleTab
-from components.DataValidator import DataValidator
-from components.TabToDictionary import TabToDictionary
+from dataconverter.components.Tabs import TabsContainer, FinPlateTab, TensionMemberTab, BCEndPlateTab, CleatAngleTab
+from dataconverter.components.DataValidator import DataValidator
+from dataconverter.components.TabToDictionary import TabToDictionary
 
 
 class DataConverter(QMainWindow):

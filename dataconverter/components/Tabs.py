@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QTabWidget, QTableWidget, QInputDialog, QMessageBox
-from components.FileLoaderMultiProcessing import FileLoader
+from dataconverter.components.FileLoaderMultiProcessing import FileLoader
 
 
 class Singleton(type(QTabWidget)):
