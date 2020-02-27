@@ -47,17 +47,19 @@ class DataValidator():
         msg.exec_()
 
     @staticmethod
-    def show_validation_complete():
+    def show_validation_complete(proceed_to_save=False):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
         msg.setText("Validation Complete")
         ok_msg = "Your data is valid"
+        if proceed_to_save:
+            ok_msg = "Your data is valid, you can Save your file now!\n\nChoose a directory to save your file after clicking OK"
         msg.setInformativeText(ok_msg)
         msg.setWindowTitle("Validation Complete")
         msg.exec_()
 
     @staticmethod
-    def is_valid(tab, tab_name):
+    def is_valid(tab, tab_name, proceed_to_save=False):
         print("Validator class:", tab_name)
         print(tab.rowCount(), tab.columnCount())
 
@@ -107,8 +109,9 @@ class DataValidator():
                 DataValidator.show_missing_value_error(tab_name, header_name, row_index, is_missing_value[1])
 
             if is_error_incurred:
-                break
+                return False
 
         if not is_error_incurred:
             print("\nCompleted Validation")
-            DataValidator.show_validation_complete()
+            DataValidator.show_validation_complete(proceed_to_save)
+            return True

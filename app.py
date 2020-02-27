@@ -58,6 +58,7 @@ class DataConverter(QMainWindow):
 
         # Menubar actions
         self.menu_action_validate_data.triggered.connect(self.validate_current_tab_data)
+        self.menu_action_save_data.triggered.connect(self.save_current_tab_data)
 
     def load_fin_plate(self):
         # Open file action for Fin Plate Tab
@@ -92,11 +93,20 @@ class DataConverter(QMainWindow):
     def load_blank_cleat_angle(self):
         self.tabs_container.add_tab(CleatAngleTab())
 
-    def validate_current_tab_data(self):
+    def validate_current_tab_data(self, proceed_to_save=False):
         print("Validating current tab")
         current_tab_name = self.tabs_container.get_current_tab_name()
         if current_tab_name != "Start Page":
-            DataValidator.is_valid(self.tabs_container.get_current_tab(), current_tab_name)
+            return DataValidator.is_valid(self.tabs_container.get_current_tab(), current_tab_name,
+                                          proceed_to_save=proceed_to_save)
+        return False  # For Start Page Tab
+
+    def save_current_tab_data(self):
+        # Process only if the data in current tab is valid
+        if self.validate_current_tab_data(proceed_to_save=True):
+            print("Proceeding to Save the Data")
+        else:
+            print("Validate the current tab to proceed with saving the data")
 
 
 def run():
