@@ -118,14 +118,13 @@ class DataConverter(QMainWindow):
 
 
 def run():
+    import win32gui, win32con
+    The_program_to_hide = win32gui.GetForegroundWindow()
+    win32gui.ShowWindow(The_program_to_hide, win32con.SW_HIDE)
     app = QApplication(sys.argv)
     GUI = DataConverter("Spreadsheet to Data Converter")
     sys.exit(app.exec_())
 
 
-import win32gui, win32con
-
 if __name__ == '__main__':
-    The_program_to_hide = win32gui.GetForegroundWindow()
-    win32gui.ShowWindow(The_program_to_hide, win32con.SW_HIDE)
     run()
