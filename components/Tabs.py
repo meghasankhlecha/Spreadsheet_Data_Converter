@@ -7,11 +7,14 @@ import random
 
 class TabsContainer(QTabWidget):
 
-    def __init__(self, tabWidget, start_page_tab):
+    def __init__(self, tabWidget, start_page_tab, menu_action_validate_data, menu_action_save_data):
         super(TabsContainer, self).__init__()
         self.tabWidget = tabWidget
 
         self.start_page_tab = start_page_tab
+
+        self.menu_action_validate_data = menu_action_validate_data
+        self.menu_action_save_data = menu_action_save_data
 
         self.tabWidget.setCurrentIndex(0)
         self.tabWidget.setTabsClosable(True)
@@ -42,6 +45,10 @@ class TabsContainer(QTabWidget):
         # Add property for accessing the module of the tab
         self.get_current_tab().setProperty("module_name", tab.get_tab_module())
 
+        # Enable validate and save menu options
+        self.menu_action_validate_data.setEnabled(True)
+        self.menu_action_save_data.setEnabled(True)
+
     def close_tab(self, current_index):
         print("Current Tab Index = ", current_index)
         self.tabWidget.removeTab(current_index)
@@ -50,6 +57,9 @@ class TabsContainer(QTabWidget):
         if self.tabWidget.count() == 0:
             print("All Tabs closed, redirect to landing page")
             self.tabWidget.insertTab(0, self.start_page_tab, "Start Page")
+            # Disable Validate and Save options
+            self.menu_action_validate_data.setEnabled(False)
+            self.menu_action_save_data.setEnabled(False)
 
         # TODO: Add a Save check before proceeding to close the tab
 

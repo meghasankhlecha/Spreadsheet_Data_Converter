@@ -16,11 +16,15 @@ class DataConverter(QMainWindow):
         mainwindowui_file = os.path.join(RESOURCE_PATH, "ui/mainwindow.ui")
         uic.loadUi(mainwindowui_file, self)
 
-        # Composition - DataConvertor App has Tabs Container
-        self.tabs_container = TabsContainer(self.tabWidget, self.start_tab)
-
         self.menu_action_validate_data = self.menubar.addAction("Validate Data")
         self.menu_action_save_data = self.menubar.addAction("Save Data to text file")
+        self.menu_action_validate_data.setEnabled(False)
+        self.menu_action_save_data.setEnabled(False)
+
+        # Composition - DataConvertor App has Tabs Container
+        self.tabs_container = TabsContainer(self.tabWidget, self.start_tab, self.menu_action_save_data, self.menu_action_validate_data)
+
+
 
         self.set_connections()
 
@@ -107,7 +111,8 @@ class DataConverter(QMainWindow):
         if self.validate_current_tab_data(proceed_to_save=True):
             print("Proceeding to Save the Data")
             current_tab_name = self.tabs_container.get_current_tab_name()
-            TabToDictionary.tab_data_to_dict(main_window=self,tab=self.tabs_container.get_current_tab(), tab_name=current_tab_name)
+            TabToDictionary.tab_data_to_dict(main_window=self, tab=self.tabs_container.get_current_tab(),
+                                             tab_name=current_tab_name)
 
 
 def run():

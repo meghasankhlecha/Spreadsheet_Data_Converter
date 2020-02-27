@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>619</width>
-    <height>457</height>
+    <width>630</width>
+    <height>440</height>
    </rect>
   </property>
   <property name="font">
@@ -66,7 +66,7 @@ background-color: #e5e5e5;
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <property name="topMargin">
-     <number>12</number>
+     <number>6</number>
     </property>
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
@@ -79,9 +79,9 @@ background-color: #e5e5e5;
       <property name="font">
        <font>
         <family>Google Sans</family>
-        <pointsize>8</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
+        <pointsize>9</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
        </font>
       </property>
       <property name="focusPolicy">
@@ -150,8 +150,9 @@ background-color: #e5e5e5;
               <property name="font">
                <font>
                 <family>Google Sans</family>
-                <pointsize>24</pointsize>
+                <pointsize>26</pointsize>
                 <weight>50</weight>
+                <italic>false</italic>
                 <bold>false</bold>
                </font>
               </property>
@@ -161,8 +162,14 @@ background-color: #e5e5e5;
               <property name="styleSheet">
                <string notr="true"/>
               </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
               <property name="text">
                <string>Spreadsheet Data Converter</string>
+              </property>
+              <property name="scaledContents">
+               <bool>true</bool>
               </property>
               <property name="margin">
                <number>0</number>
@@ -180,7 +187,7 @@ background-color: #e5e5e5;
               <property name="font">
                <font>
                 <family>Google Sans</family>
-                <pointsize>16</pointsize>
+                <pointsize>17</pointsize>
                 <weight>75</weight>
                 <italic>true</italic>
                 <bold>true</bold>
@@ -191,7 +198,7 @@ background-color: #e5e5e5;
                <string notr="true">color:rgb(20,146,255);</string>
               </property>
               <property name="text">
-               <string>Get Started!</string>
+               <string>Get Started</string>
               </property>
               <property name="textFormat">
                <enum>Qt::AutoText</enum>
@@ -205,6 +212,9 @@ background-color: #e5e5e5;
               <property name="wordWrap">
                <bool>true</bool>
               </property>
+              <property name="margin">
+               <number>0</number>
+              </property>
              </widget>
             </item>
             <item>
@@ -212,7 +222,7 @@ background-color: #e5e5e5;
               <property name="font">
                <font>
                 <family>Google Sans</family>
-                <pointsize>12</pointsize>
+                <pointsize>13</pointsize>
                 <weight>50</weight>
                 <italic>true</italic>
                 <bold>false</bold>
@@ -252,12 +262,14 @@ background-color: #e5e5e5;
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>150</width>
-                    <height>30</height>
+                    <width>180</width>
+                    <height>40</height>
                    </size>
                   </property>
                   <property name="font">
                    <font>
+                    <family>Google Sans</family>
+                    <pointsize>12</pointsize>
                     <weight>50</weight>
                     <bold>false</bold>
                    </font>
@@ -280,8 +292,8 @@ background-color: #e5e5e5;
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>150</width>
-                    <height>30</height>
+                    <width>180</width>
+                    <height>40</height>
                    </size>
                   </property>
                   <property name="baseSize">
@@ -289,6 +301,12 @@ background-color: #e5e5e5;
                     <width>0</width>
                     <height>0</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Google Sans</family>
+                    <pointsize>12</pointsize>
+                   </font>
                   </property>
                   <property name="text">
                    <string>Tension Member</string>
@@ -303,9 +321,15 @@ background-color: #e5e5e5;
                  <widget class="QPushButton" name="push_btn_bc_end_plate">
                   <property name="minimumSize">
                    <size>
-                    <width>150</width>
-                    <height>30</height>
+                    <width>180</width>
+                    <height>40</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Google Sans</family>
+                    <pointsize>12</pointsize>
+                   </font>
                   </property>
                   <property name="text">
                    <string>BC End Plate</string>
@@ -316,9 +340,15 @@ background-color: #e5e5e5;
                  <widget class="QPushButton" name="push_btn_cleat_angle">
                   <property name="minimumSize">
                    <size>
-                    <width>150</width>
-                    <height>30</height>
+                    <width>180</width>
+                    <height>40</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Google Sans</family>
+                    <pointsize>12</pointsize>
+                   </font>
                   </property>
                   <property name="text">
                    <string>Cleat Angle</string>
@@ -370,7 +400,7 @@ background-color: #e5e5e5;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>619</width>
+     <width>630</width>
      <height>21</height>
     </rect>
    </property>
@@ -423,33 +453,6 @@ background-color: #e5e5e5;
     <addaction name="action_exit"/>
    </widget>
    <addaction name="menuFile"/>
-  </widget>
-  <widget class="QToolBar" name="toolbar_bottom_info">
-   <property name="windowTitle">
-    <string>toolBar_2</string>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QWidget{
-border: 2px solid;
-border-color: transparent #ccc transparent transparent
-}</string>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>BottomToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-   <addaction name="action_toolbar_bottom_column_count"/>
-   <addaction name="action_toolbar_bottom_row_count"/>
-   <addaction name="action_toolbar_bottom_source"/>
-   <addaction name="action_toolbar_bottom_column"/>
-   <addaction name="action_toolbar_bottom_row"/>
-   <addaction name="action_toolbar_bottom_selected_cells"/>
-   <addaction name="action_toolbar_bottom_text_length"/>
   </widget>
   <action name="action_close_file">
    <property name="text">
