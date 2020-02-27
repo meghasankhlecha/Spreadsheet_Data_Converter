@@ -66,6 +66,9 @@ class DataConverter(QMainWindow):
         self.menu_action_validate_data.triggered.connect(self.validate_current_tab_data)
         self.menu_action_save_data.triggered.connect(self.save_current_tab_data)
 
+        # Exit app
+        self.action_exit.triggered.connect(self.close_application)
+
     def load_fin_plate(self):
         # Open file action for Fin Plate Tab
         fin_plate_tab = FinPlateTab()
