@@ -39,6 +39,9 @@ class TabsContainer(QTabWidget):
         # Set the new opened tab as current
         self.tabWidget.setCurrentIndex(self.tabWidget.count() - 1)
 
+        # Add property for accessing the module of the tab
+        self.get_current_tab().setProperty("module_name", tab.get_tab_module())
+
     def close_tab(self, current_index):
         print("Current Tab Index = ", current_index)
         self.tabWidget.removeTab(current_index)
@@ -73,6 +76,9 @@ class ModuleTab(QTableWidget):
         self.tab.setHorizontalHeaderLabels(tab_columns)
 
         self.tab_title = tab_title
+
+    def get_tab_module(self):
+        return self.tab_module_name
 
     def get_tab_title(self):
         return self.tab_title

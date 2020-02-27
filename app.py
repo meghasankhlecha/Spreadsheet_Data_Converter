@@ -4,6 +4,7 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from components.Tabs import TabsContainer, FinPlateTab, TensionMemberTab, BCEndPlateTab, CleatAngleTab
 from components.DataValidator import DataValidator
+from components.TabToDictionary import TabToDictionary
 
 
 class DataConverter(QMainWindow):
@@ -97,7 +98,7 @@ class DataConverter(QMainWindow):
         print("Validating current tab")
         current_tab_name = self.tabs_container.get_current_tab_name()
         if current_tab_name != "Start Page":
-            return DataValidator.is_valid(self.tabs_container.get_current_tab(), current_tab_name,
+            return DataValidator.is_valid(tab=self.tabs_container.get_current_tab(), tab_name=current_tab_name,
                                           proceed_to_save=proceed_to_save)
         return False  # For Start Page Tab
 
@@ -105,8 +106,8 @@ class DataConverter(QMainWindow):
         # Process only if the data in current tab is valid
         if self.validate_current_tab_data(proceed_to_save=True):
             print("Proceeding to Save the Data")
-        else:
-            print("Validate the current tab to proceed with saving the data")
+            current_tab_name = self.tabs_container.get_current_tab_name()
+            TabToDictionary.tab_data_to_dict(main_window=self,tab=self.tabs_container.get_current_tab(), tab_name=current_tab_name)
 
 
 def run():
