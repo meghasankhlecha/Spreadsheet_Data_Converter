@@ -1,0 +1,1 @@
+"ID": "2", "Connection type": "1", "Axial load": "70", "Shear load": "60", "Bolt diameter": "26", "Bolt grade": "8.8", "Plate thickness": "14"
