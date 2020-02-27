@@ -2,7 +2,17 @@ from PyQt5.QtWidgets import QTabWidget, QTableWidget, QInputDialog
 from components.FileLoaderMultiProcessing import FileLoader
 
 
-class TabsContainer(QTabWidget):
+class Singleton(type(QTabWidget)):
+    _instances = {}
+
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
+
+
+# Allow only one instance of TabsContainer - Singleton Pattern
+class TabsContainer(QTabWidget, metaclass=Singleton):
 
     def __init__(self, tabWidget, start_page_tab, menu_action_validate_data, menu_action_save_data):
         super(TabsContainer, self).__init__()
