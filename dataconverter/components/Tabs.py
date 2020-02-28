@@ -91,7 +91,7 @@ class TabsContainer(QTabWidget, metaclass=Singleton):
 
 class ModuleTab(QTableWidget):
     max_row_count = 1048576  # Defaults to value used by MS Excel = 1048576
-    tab_module_name = None
+    main_window = None
 
     def __init__(self, tab_title, tab_columns=None):
         super(ModuleTab, self).__init__()
@@ -119,7 +119,7 @@ class ModuleTab(QTableWidget):
         print("Load File called for tab: ", self.tab_module_name)
         # This will ensure that the file pointer is not destroyed before completion of loading
         # This will keep the FileLoader in memory till the finished signal is emitted avoid garbage collection
-        self.get_tab().setProperty("file_pointer", FileLoader(self, self.get_tab()))
+        self.get_tab().setProperty("file_pointer", FileLoader(ModuleTab.main_window, self.get_tab()))
         self.get_tab().property("file_pointer").load_csv()
 
 

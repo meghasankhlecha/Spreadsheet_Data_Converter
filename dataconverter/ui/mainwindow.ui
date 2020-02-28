@@ -15,11 +15,12 @@
   </property>
   <property name="font">
    <font>
-    <family>Google Sans</family>
+    <family>Segoe UI</family>
+    <pointsize>9</pointsize>
    </font>
   </property>
   <property name="windowTitle">
-   <string>Spreadsheet Data Converter</string>
+   <string>Spreadsheet Data Converter Fossee</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -29,6 +30,11 @@
    <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">QWidget{
 background-color: rgb(255, 255, 255);
@@ -78,7 +84,7 @@ background-color: #e5e5e5;
       </property>
       <property name="font">
        <font>
-        <family>Google Sans</family>
+        <family>Segoe UI</family>
         <pointsize>9</pointsize>
         <weight>50</weight>
         <bold>false</bold>
@@ -115,6 +121,11 @@ background-color: #e5e5e5;
        <bool>false</bool>
       </property>
       <widget class="QWidget" name="start_tab">
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+        </font>
+       </property>
        <attribute name="title">
         <string>Start Page</string>
        </attribute>
@@ -123,9 +134,119 @@ background-color: #e5e5e5;
        </attribute>
        <layout class="QGridLayout" name="gridLayout_6">
         <item row="0" column="0">
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <layout class="QHBoxLayout" name="outer_horizontal_layout">
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_3">
+           <layout class="QVBoxLayout" name="outer_vertical_layout">
+            <property name="spacing">
+             <number>5</number>
+            </property>
+            <item>
+             <spacer name="verticalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>5</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="title_vertical_layout">
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
+               <widget class="QLabel" name="label_main_title">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>1</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Segoe UI</family>
+                  <pointsize>27</pointsize>
+                  <weight>50</weight>
+                  <italic>false</italic>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Plain</enum>
+                </property>
+                <property name="text">
+                 <string>Spreadsheet Data Converter</string>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+                </property>
+                <property name="margin">
+                 <number>0</number>
+                </property>
+                <property name="indent">
+                 <number>0</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_sub_title">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>1</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Segoe UI</family>
+                  <pointsize>19</pointsize>
+                  <weight>75</weight>
+                  <italic>true</italic>
+                  <bold>true</bold>
+                  <underline>true</underline>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color:rgb(20,146,255);</string>
+                </property>
+                <property name="text">
+                 <string>Get Started</string>
+                </property>
+                <property name="textFormat">
+                 <enum>Qt::AutoText</enum>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
+                <property name="margin">
+                 <number>0</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
             <item>
              <spacer name="verticalSpacer_2">
               <property name="orientation">
@@ -134,121 +255,49 @@ background-color: #e5e5e5;
               <property name="sizeHint" stdset="0">
                <size>
                 <width>20</width>
-                <height>20</height>
+                <height>5</height>
                </size>
               </property>
              </spacer>
             </item>
-            <item alignment="Qt::AlignHCenter">
-             <widget class="QLabel" name="label_left_main_title">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>1</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="font">
-               <font>
-                <family>Google Sans</family>
-                <pointsize>26</pointsize>
-                <weight>50</weight>
-                <italic>false</italic>
-                <bold>false</bold>
-               </font>
-              </property>
-              <property name="autoFillBackground">
-               <bool>false</bool>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <property name="text">
-               <string>Spreadsheet Data Converter</string>
-              </property>
-              <property name="scaledContents">
-               <bool>true</bool>
-              </property>
-              <property name="margin">
-               <number>0</number>
-              </property>
-             </widget>
-            </item>
             <item>
-             <widget class="QLabel" name="label_left_sub_title">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>1</verstretch>
-               </sizepolicy>
-              </property>
+             <widget class="QLabel" name="label_select_a_module">
               <property name="font">
                <font>
-                <family>Google Sans</family>
-                <pointsize>17</pointsize>
-                <weight>75</weight>
-                <italic>true</italic>
-                <bold>true</bold>
-                <underline>true</underline>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">color:rgb(20,146,255);</string>
-              </property>
-              <property name="text">
-               <string>Get Started</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::AutoText</enum>
-              </property>
-              <property name="scaledContents">
-               <bool>true</bool>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-              <property name="wordWrap">
-               <bool>true</bool>
-              </property>
-              <property name="margin">
-               <number>0</number>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label">
-              <property name="font">
-               <font>
-                <family>Google Sans</family>
+                <family>Segoe UI</family>
                 <pointsize>13</pointsize>
                 <weight>50</weight>
-                <italic>true</italic>
+                <italic>false</italic>
                 <bold>false</bold>
                </font>
               </property>
               <property name="text">
                <string>Select a module below to open a spreadsheet</string>
               </property>
+              <property name="scaledContents">
+               <bool>true</bool>
+              </property>
               <property name="alignment">
-               <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+               <set>Qt::AlignHCenter|Qt::AlignTop</set>
               </property>
               <property name="margin">
-               <number>8</number>
+               <number>6</number>
               </property>
              </widget>
             </item>
             <item>
              <layout class="QVBoxLayout" name="module_selection_layout" stretch="0,0">
               <property name="spacing">
-               <number>2</number>
+               <number>3</number>
               </property>
               <property name="sizeConstraint">
                <enum>QLayout::SetDefaultConstraint</enum>
               </property>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout">
+               <layout class="QHBoxLayout" name="module_selection_horizontal_layout_1">
+                <property name="spacing">
+                 <number>8</number>
+                </property>
                 <property name="bottomMargin">
                  <number>5</number>
                 </property>
@@ -268,7 +317,7 @@ background-color: #e5e5e5;
                   </property>
                   <property name="font">
                    <font>
-                    <family>Google Sans</family>
+                    <family>Segoe UI</family>
                     <pointsize>12</pointsize>
                     <weight>50</weight>
                     <bold>false</bold>
@@ -304,7 +353,7 @@ background-color: #e5e5e5;
                   </property>
                   <property name="font">
                    <font>
-                    <family>Google Sans</family>
+                    <family>Segoe UI</family>
                     <pointsize>12</pointsize>
                    </font>
                   </property>
@@ -316,7 +365,10 @@ background-color: #e5e5e5;
                </layout>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <layout class="QHBoxLayout" name="module_selection_horizontal_layout_2">
+                <property name="spacing">
+                 <number>8</number>
+                </property>
                 <item alignment="Qt::AlignRight|Qt::AlignVCenter">
                  <widget class="QPushButton" name="push_btn_bc_end_plate">
                   <property name="minimumSize">
@@ -327,7 +379,7 @@ background-color: #e5e5e5;
                   </property>
                   <property name="font">
                    <font>
-                    <family>Google Sans</family>
+                    <family>Segoe UI</family>
                     <pointsize>12</pointsize>
                    </font>
                   </property>
@@ -346,7 +398,7 @@ background-color: #e5e5e5;
                   </property>
                   <property name="font">
                    <font>
-                    <family>Google Sans</family>
+                    <family>Segoe UI</family>
                     <pointsize>12</pointsize>
                    </font>
                   </property>
@@ -367,20 +419,29 @@ background-color: #e5e5e5;
               <property name="sizeHint" stdset="0">
                <size>
                 <width>20</width>
-                <height>40</height>
+                <height>20</height>
                </size>
               </property>
              </spacer>
             </item>
             <item>
-             <widget class="QLabel" name="label_2">
+             <widget class="QLabel" name="label_github_link">
+              <property name="font">
+               <font>
+                <family>Segoe UI</family>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
               <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;For help, please visit&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;# The Spreadsheet Data Converter Github Page&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;# Powered by openSource community!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;For help, please visit&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;# The Spreadsheet Data Converter &lt;/span&gt;&lt;a href=&quot;https://github.com/meghasankhlecha/fsf_2020_screening_task&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Github Page&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;# Powered by openSource community!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignBottom|Qt::AlignHCenter</set>
               </property>
               <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="openExternalLinks">
                <bool>true</bool>
               </property>
              </widget>
@@ -410,7 +471,7 @@ background-color: #e5e5e5;
    <widget class="QMenu" name="menuFile">
     <property name="font">
      <font>
-      <family>Google Sans</family>
+      <family>Segoe UI</family>
       <underline>false</underline>
       <strikeout>false</strikeout>
      </font>
@@ -421,7 +482,7 @@ background-color: #e5e5e5;
     <widget class="QMenu" name="menu_load_file">
      <property name="font">
       <font>
-       <family>Arial</family>
+       <family>Segoe UI</family>
       </font>
      </property>
      <property name="title">
@@ -435,7 +496,7 @@ background-color: #e5e5e5;
     <widget class="QMenu" name="menu_open_blank_tab">
      <property name="font">
       <font>
-       <family>Arial</family>
+       <family>Segoe UI</family>
       </font>
      </property>
      <property name="title">
@@ -474,7 +535,7 @@ background-color: #e5e5e5;
    </property>
    <property name="font">
     <font>
-     <family>Arial</family>
+     <family>Segoe UI</family>
     </font>
    </property>
   </action>
@@ -537,7 +598,7 @@ background-color: #e5e5e5;
    </property>
    <property name="font">
     <font>
-     <family>Arial</family>
+     <family>Segoe UI</family>
     </font>
    </property>
   </action>
@@ -547,7 +608,7 @@ background-color: #e5e5e5;
    </property>
    <property name="font">
     <font>
-     <family>Arial</family>
+     <family>Segoe UI</family>
     </font>
    </property>
   </action>
@@ -557,7 +618,7 @@ background-color: #e5e5e5;
    </property>
    <property name="font">
     <font>
-     <family>Arial</family>
+     <family>Segoe UI</family>
     </font>
    </property>
   </action>
@@ -567,7 +628,7 @@ background-color: #e5e5e5;
    </property>
    <property name="font">
     <font>
-     <family>Arial</family>
+     <family>Segoe UI</family>
     </font>
    </property>
   </action>
@@ -577,7 +638,7 @@ background-color: #e5e5e5;
    </property>
    <property name="font">
     <font>
-     <family>Arial</family>
+     <family>Segoe UI</family>
     </font>
    </property>
   </action>
@@ -587,7 +648,7 @@ background-color: #e5e5e5;
    </property>
    <property name="font">
     <font>
-     <family>Arial</family>
+     <family>Segoe UI</family>
     </font>
    </property>
   </action>
@@ -597,7 +658,7 @@ background-color: #e5e5e5;
    </property>
    <property name="font">
     <font>
-     <family>Arial</family>
+     <family>Segoe UI</family>
     </font>
    </property>
   </action>
@@ -607,7 +668,7 @@ background-color: #e5e5e5;
    </property>
    <property name="font">
     <font>
-     <family>Arial</family>
+     <family>Segoe UI</family>
     </font>
    </property>
   </action>

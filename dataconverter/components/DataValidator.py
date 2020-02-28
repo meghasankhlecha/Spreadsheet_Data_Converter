@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QMessageBox
 
 
 class DataValidator():
+    main_window = None
 
     @staticmethod
     def is_number(x):
@@ -11,7 +12,7 @@ class DataValidator():
 
     @staticmethod
     def show_not_number_error(tab_name, header_name, row, col, value):
-        msg = QMessageBox()
+        msg = QMessageBox(DataValidator.main_window)
         msg.setIcon(QMessageBox.Critical)
         msg.setText("Non-numerical input incurred")
         error_msg = "All cells other than headers should only take numerical inputs.\n\nError in {} Tab:\n\nColumn: {}\nRow: {}\nValue: {}".format(
@@ -23,7 +24,7 @@ class DataValidator():
 
     @staticmethod
     def show_file_empty_error(tab_name):
-        msg = QMessageBox()
+        msg = QMessageBox(DataValidator.main_window)
         msg.setIcon(QMessageBox.Critical)
         msg.setText("Empty File Error")
         error_msg = "The content of the spreadsheet can not be blank, and thus can not be validated.\n\nError in {} Tab".format(
@@ -34,7 +35,7 @@ class DataValidator():
 
     @staticmethod
     def show_missing_value_error(tab_name, header_name, row, col):
-        msg = QMessageBox()
+        msg = QMessageBox(DataValidator.main_window)
         msg.setIcon(QMessageBox.Critical)
         msg.setText("Empty input incurred")
         error_msg = "The content of the cell can not be blank, please fill in a numerical value.\n\nError in {} Tab:\n\nColumn: {}\nRow: {}".format(
@@ -46,7 +47,7 @@ class DataValidator():
 
     @staticmethod
     def show_duplicate_id_error(tab_name, header_name, row, col, value):
-        msg = QMessageBox()
+        msg = QMessageBox(DataValidator.main_window)
         msg.setIcon(QMessageBox.Critical)
         msg.setText("Duplicate ID found")
         error_msg = "ID column shall be unique, i.e., ID number should not be repeated\n\nError in {} Tab:\n\nColumn: {}\nRow: {}\nDuplicate Value: {}".format(
@@ -58,12 +59,12 @@ class DataValidator():
 
     @staticmethod
     def show_validation_complete(proceed_to_save=False):
-        msg = QMessageBox()
+        msg = QMessageBox(DataValidator.main_window)
         msg.setIcon(QMessageBox.Information)
         msg.setText("Validation Complete")
         ok_msg = "Your data is valid"
         if proceed_to_save:
-            ok_msg = "Your data is valid, you can Save your file now!\n\nChoose a directory to save your file after clicking OK"
+            ok_msg = "Your data is valid, choose a directory to save your files after clicking OK"
         msg.setInformativeText(ok_msg)
         msg.setWindowTitle("Validation Complete")
         msg.exec_()

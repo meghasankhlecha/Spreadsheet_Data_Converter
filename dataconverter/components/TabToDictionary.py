@@ -4,13 +4,15 @@ from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
 
 class TabToDictionary:
+    main_window = None
+
     @staticmethod
-    def tab_data_to_dict(main_window, tab, tab_name):
+    def tab_data_to_dict(tab, tab_name):
         tab_module_name = tab.property("module_name")
         print("Tab Module:", tab_module_name)
         print("Tab Name:", tab_name)
 
-        save_directory = str(QFileDialog.getExistingDirectory(main_window, "Select Directory"))
+        save_directory = str(QFileDialog.getExistingDirectory(TabToDictionary.main_window, "Select Directory"))
 
         if save_directory:
             header_names = []
@@ -49,7 +51,7 @@ class TabToDictionary:
 
     @staticmethod
     def show_file_saved_success(save_directory):
-        msg = QMessageBox()
+        msg = QMessageBox(TabToDictionary.main_window)
         msg.setIcon(QMessageBox.Information)
         msg.setText("Data saved successfully!")
         ok_msg = "Your data has been saved successfully inside {}/".format(save_directory)

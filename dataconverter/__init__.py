@@ -2,7 +2,8 @@ import os
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
-from dataconverter.components.Tabs import TabsContainer, FinPlateTab, TensionMemberTab, BCEndPlateTab, CleatAngleTab
+from dataconverter.components.Tabs import TabsContainer, ModuleTab, FinPlateTab, TensionMemberTab, BCEndPlateTab, \
+    CleatAngleTab
 from dataconverter.components.DataValidator import DataValidator
 from dataconverter.components.TabToDictionary import TabToDictionary
 
@@ -25,6 +26,11 @@ class DataConverter(QMainWindow):
         self.tabs_container = TabsContainer(main_window=self, tabWidget=self.tabWidget, start_page_tab=self.start_tab,
                                             menu_action_save_data=self.menu_action_save_data,
                                             menu_action_validate_data=self.menu_action_validate_data)
+
+        # Set the UI context for all elements there within
+        ModuleTab.main_window = self
+        DataValidator.main_window = self
+        TabToDictionary.main_window = self
 
         # Set the slots for various menu items and buttons
         self.set_connections()
@@ -103,6 +109,7 @@ class DataConverter(QMainWindow):
         self.tabs_container.add_tab(CleatAngleTab())
 
     def validate_current_tab_data(self, proceed_to_save=False):
+        DataValidator.main_window = self
         current_tab_name = self.tabs_container.get_current_tab_name()
         if current_tab_name != "Start Page":
             return DataValidator.is_valid(tab=self.tabs_container.get_current_tab(), tab_name=current_tab_name,
@@ -113,14 +120,14 @@ class DataConverter(QMainWindow):
         # Process only if the data in current tab is valid
         if self.validate_current_tab_data(proceed_to_save=True):
             current_tab_name = self.tabs_container.get_current_tab_name()
-            TabToDictionary.tab_data_to_dict(main_window=self, tab=self.tabs_container.get_current_tab(),
+            TabToDictionary.tab_data_to_dict(tab=self.tabs_container.get_current_tab(),
                                              tab_name=current_tab_name)
 
 
 def run():
-    import win32gui, win32con
-    The_program_to_hide = win32gui.GetForegroundWindow()
-    win32gui.ShowWindow(The_program_to_hide, win32con.SW_HIDE)
+    # import win32gui, win32con
+    # The_program_to_hide = win32gui.GetForegroundWindow()
+    # win32gui.ShowWindow(The_program_to_hide, win32con.SW_HIDE)
     app = QApplication(sys.argv)
     GUI = DataConverter("Spreadsheet to Data Converter")
     sys.exit(app.exec_())
