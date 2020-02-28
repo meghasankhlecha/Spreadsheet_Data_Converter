@@ -9,7 +9,7 @@ from dataconverter.components.TabToDictionary import TabToDictionary
 
 import logging
 
-logging.basicConfig(filename='app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename='app.log', level=logging.INFO)
 
 
 class DataConverter(QMainWindow):
@@ -52,7 +52,7 @@ class DataConverter(QMainWindow):
         choice = QMessageBox.question(self, 'Quit', "Are you sure you want to quit?",
                                       QMessageBox.Yes | QMessageBox.No)
         if choice == QMessageBox.Yes:
-            # logging.debug("Quiting")
+            # logging.info("Quiting")
             sys.exit()
 
     def set_connections(self):
@@ -129,9 +129,6 @@ class DataConverter(QMainWindow):
 
 
 def run():
-    # import win32gui, win32con
-    # The_program_to_hide = win32gui.GetForegroundWindow()
-    # win32gui.ShowWindow(The_program_to_hide, win32con.SW_HIDE)
     app = QApplication(sys.argv)
     GUI = DataConverter("Spreadsheet to Data Converter")
     sys.exit(app.exec_())

@@ -10,8 +10,8 @@ class TabToDictionary:
     @staticmethod
     def tab_data_to_dict(tab, tab_name):
         tab_module_name = tab.property("module_name")
-        logging.debug("Tab Module: {}".format(tab_module_name))
-        logging.debug("Tab Name: {}".format(tab_name))
+        logging.info("Tab Module: {}".format(tab_module_name))
+        logging.info("Tab Name: {}".format(tab_name))
 
         save_directory = str(QFileDialog.getExistingDirectory(TabToDictionary.main_window, "Select Directory"))
 
@@ -45,9 +45,9 @@ class TabToDictionary:
                 with open(save_directory + "/{}_{}.txt".format(tab_module_name, row_id), "w") as output_file:
                     output_file.write(output_row)
 
-                    logging.debug(output_row)
+                    logging.info(output_row)
 
-            logging.debug("The files have been saved to directory {}".format(save_directory))
+            logging.info("The files have been saved to directory {}".format(save_directory))
             TabToDictionary.show_file_saved_success(save_directory)
 
     @staticmethod
