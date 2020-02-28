@@ -151,7 +151,7 @@ class FileLoader:
     def task_finished(self):
         logging.info("on_task_finish_called")
         # Stretch to fill the column width according to content
-        self.tab_data_table.resizeColumnsToContents()
+        # self.tab_data_table.resizeColumnsToContents()
 
         # Change the cursor back to normal
         QApplication.restoreOverrideCursor()
