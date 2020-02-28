@@ -31,7 +31,7 @@ class Worker(QObject):
                 self.max_progress_value.emit(len(csv_file.readlines()) - 1)
 
             with open(self.file_path[0], newline='') as csv_file:
-                logging.debug("Opened file for reading")
+                logging.info("Opened file for reading")
                 csv_file_read = csv.reader(csv_file, delimiter=',', quotechar='|')
                 row_index = 0
                 for row_data in csv_file_read:
@@ -41,13 +41,13 @@ class Worker(QObject):
 
                     row_index = row_index + 1
 
-            logging.debug("Total Rows processed: {}".format(row_index))
+            logging.info("Total Rows processed: {}".format(row_index))
         elif FileLoader.is_excel_file(self.file_extension):
             workbook = xlrd.open_workbook(self.file_path[0])
             # Support only first sheet of excel file at this time
             sheet = workbook.sheet_by_index(0)
 
-            logging.debug("Max sheet rows: {}".format(sheet.nrows))
+            logging.info("Max sheet rows: {}".format(sheet.nrows))
             self.max_progress_value.emit(sheet.nrows - 1)
 
             for rowx in range(sheet.nrows):
@@ -59,7 +59,7 @@ class Worker(QObject):
                     self.read_values.emit(rowx, col_index, str(col))
                     col_index += 1
 
-        logging.debug("File loading finish signal emitted")
+        logging.info("File loading finish signal emitted")
         self.finished.emit()
 
 
@@ -69,8 +69,8 @@ class FileLoader:
         self.tab_data_table = tab_data_table
         self.main_window = main_window
 
-    def __del__(self):
-        logging.debug('Destructor call check to ensure it fires after complete execution')
+    # def __del__(self):
+    #     logging.info('Destructor call check to ensure it fires after complete execution')
 
     @staticmethod
     def is_csv_file(file_extension):
@@ -124,7 +124,7 @@ class FileLoader:
         # # Show waiting cursor till the time file is being processed
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
 
-        self.loading_progress = QProgressDialog("Reading Rows. Please wait...", None, 0, 99999, self.main_window)
+        self.loading_progress = QProgressDialog("Reading Rows. Please wait...", None, 0, 0, self.main_window)
 
         if self.is_csv_file(self.file_extension):
             self.loading_progress.setWindowTitle("Loading CSV File...")
@@ -138,6 +138,8 @@ class FileLoader:
         # disable (but not hide) close button
         self.loading_progress.setWindowFlags(self.loading_progress.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
 
+        self.loading_progress.show()
+
     def set_progress_value(self, val):
         self.loading_progress.setValue(val)
 
@@ -147,14 +149,16 @@ class FileLoader:
         self.loading_progress.setValue(0)
 
     def task_finished(self):
-        logging.debug("on_task_finish_called")
+        logging.info("on_task_finish_called")
         # Stretch to fill the column width according to content
         self.tab_data_table.resizeColumnsToContents()
 
         # Change the cursor back to normal
         QApplication.restoreOverrideCursor()
 
+        # Properly manage quiting the thread
         self.thread.quit()
-
+        # Wait for it to cleanup
+        self.thread.wait()
         # Remove pointer to the current FileLoader so it can be GCed
         self.tab_data_table.setProperty("file_pointer", None)
