@@ -1,3 +1,5 @@
+import logging
+
 from PyQt5.QtWidgets import QMessageBox
 
 
@@ -85,7 +87,7 @@ class DataValidator():
 
                 # Check if the cell is not empty
                 if item and item.text():
-                    # print(item.text(), end=", ")
+                    # logging.debug(item.text(), end=", ")
                     is_complete_row_empty = False
 
                     if not DataValidator.is_number(item.text()):
@@ -123,6 +125,6 @@ class DataValidator():
                 return False
 
         if not is_error_incurred:
-            print("\nCompleted Validation")
+            logging.debug("\nCompleted Validation")
             DataValidator.show_validation_complete(proceed_to_save)
             return True

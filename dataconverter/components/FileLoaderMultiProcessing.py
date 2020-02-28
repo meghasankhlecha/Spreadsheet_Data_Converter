@@ -1,3 +1,5 @@
+import logging
+
 from PyQt5 import QtCore
 from PyQt5.QtCore import QObject, pyqtSignal, QThread, pyqtSlot
 from PyQt5.QtWidgets import QApplication, QFileDialog, QTableWidgetItem, QProgressDialog
@@ -29,7 +31,7 @@ class Worker(QObject):
                 self.max_progress_value.emit(len(csv_file.readlines()) - 1)
 
             with open(self.file_path[0], newline='') as csv_file:
-                print("Opened file for reading")
+                logging.debug("Opened file for reading")
                 csv_file_read = csv.reader(csv_file, delimiter=',', quotechar='|')
                 row_index = 0
                 for row_data in csv_file_read:
@@ -39,13 +41,13 @@ class Worker(QObject):
 
                     row_index = row_index + 1
 
-            print("Total Rows processed: ", row_index)
+            logging.debug("Total Rows processed: {}".format(row_index))
         elif FileLoader.is_excel_file(self.file_extension):
             workbook = xlrd.open_workbook(self.file_path[0])
             # Support only first sheet of excel file at this time
             sheet = workbook.sheet_by_index(0)
 
-            print("Max sheet rows:", sheet.nrows)
+            logging.debug("Max sheet rows: {}".format(sheet.nrows))
             self.max_progress_value.emit(sheet.nrows - 1)
 
             for rowx in range(sheet.nrows):
@@ -57,7 +59,7 @@ class Worker(QObject):
                     self.read_values.emit(rowx, col_index, str(col))
                     col_index += 1
 
-        print("File loading finish signal emitted")
+        logging.debug("File loading finish signal emitted")
         self.finished.emit()
 
 
@@ -68,7 +70,7 @@ class FileLoader:
         self.main_window = main_window
 
     def __del__(self):
-        print('Destructor call check to ensure it fires after complete execution')
+        logging.debug('Destructor call check to ensure it fires after complete execution')
 
     @staticmethod
     def is_csv_file(file_extension):
@@ -145,7 +147,7 @@ class FileLoader:
         self.loading_progress.setValue(0)
 
     def task_finished(self):
-        print("on_task_finish_called")
+        logging.debug("on_task_finish_called")
         # Stretch to fill the column width according to content
         self.tab_data_table.resizeColumnsToContents()
 

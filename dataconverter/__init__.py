@@ -7,6 +7,10 @@ from dataconverter.components.Tabs import TabsContainer, ModuleTab, FinPlateTab,
 from dataconverter.components.DataValidator import DataValidator
 from dataconverter.components.TabToDictionary import TabToDictionary
 
+import logging
+
+logging.basicConfig(filename='app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
+
 
 class DataConverter(QMainWindow):
 
@@ -48,7 +52,7 @@ class DataConverter(QMainWindow):
         choice = QMessageBox.question(self, 'Quit', "Are you sure you want to quit?",
                                       QMessageBox.Yes | QMessageBox.No)
         if choice == QMessageBox.Yes:
-            # print("Quiting")
+            # logging.debug("Quiting")
             sys.exit()
 
     def set_connections(self):

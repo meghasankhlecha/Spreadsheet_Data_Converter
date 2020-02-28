@@ -1,3 +1,5 @@
+import logging
+
 from PyQt5.QtWidgets import QTabWidget, QTableWidget, QInputDialog, QMessageBox
 from dataconverter.components.FileLoaderMultiProcessing import FileLoader
 
@@ -61,7 +63,7 @@ class TabsContainer(QTabWidget, metaclass=Singleton):
         self.menu_action_save_data.setEnabled(True)
 
     def close_tab(self, current_index):
-        print("Current Tab Index = ", current_index)
+        logging.debug("Current Tab Index = {}".format(current_index))
         if not self.is_start_tab():
             choice = QMessageBox.question(self.main_window, 'Close Tab',
                                           "Are you sure you want to close the current tab?",
@@ -71,7 +73,7 @@ class TabsContainer(QTabWidget, metaclass=Singleton):
 
         # Show landing page if all tabs are closed
         if self.tabWidget.count() == 0:
-            print("All Tabs closed, redirect to landing page")
+            logging.debug("All Tabs closed, redirect to landing page")
             self.tabWidget.insertTab(0, self.start_page_tab, "Start Page")
             # Disable Validate and Save options
             self.menu_action_validate_data.setEnabled(False)
@@ -116,7 +118,7 @@ class ModuleTab(QTableWidget):
         return self.tab_columns
 
     def load_file(self):
-        print("Load File called for tab: ", self.tab_module_name)
+        logging.debug("Load File called for tab: {}".format(self.tab_module_name))
         # This will ensure that the file pointer is not destroyed before completion of loading
         # This will keep the FileLoader in memory till the finished signal is emitted avoid garbage collection
         self.get_tab().setProperty("file_pointer", FileLoader(ModuleTab.main_window, self.get_tab()))
