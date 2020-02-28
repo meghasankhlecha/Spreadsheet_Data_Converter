@@ -1,9 +1,9 @@
 # fsf_2020_screening_task
 
 #### Details for Fossee Task Submission
-    **Author**: Megha Kailash Sankhlecha
-    **Username**: 17dcs056
-    **Email**: 17dcs056@charusat.edu.in
+    Author: Megha Kailash Sankhlecha
+    Username: 17dcs056
+    Email: 17dcs056@charusat.edu.in
 
 This project done for the completion of screening task for python, FOSSEE 2020 Python Fellowship. 
 The task requirement was to implement a fully functional GUI Spreadsheet Data Converter to work with data related to Civil/Structural engineering by using Python and PyQT as an open source project hosted on github.
@@ -50,7 +50,10 @@ The task requirement was to implement a fully functional GUI Spreadsheet Data Co
 <details>
 <summary>Usage (Click to expand)</summary>
 
-##### Install using Windows Installer - Download from here - [Download Link](dist/Spreadsheet_Data_Converter_Fossee_1.0_Setup.exe)
+##### Install using Windows Installer (click on download after opening the link) - [Download Link](dist/Spreadsheet_Data_Converter_Fossee_1.0_Setup.exe)
+
+After downloading the setup, double click to start the installation, click on next as and when prompted and wait for completion of installation. 
+After installation, you can search for the app (Spreadsheet Data Converter Fossee) in Start Menu and click on it to run. 
 
 OR
 
