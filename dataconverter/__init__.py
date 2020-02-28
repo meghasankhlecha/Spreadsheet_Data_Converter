@@ -1,3 +1,22 @@
+# -*- coding: utf-8 -*-
+""" Spreadsheet Data Converter Fossee
+
+This project done for the completion of screening task for python, FOSSEE 2020 Python Fellowship.
+
+The task requirement was to implement a fully functional GUI Spreadsheet data converter by using Python and PyQT
+as an open source project hosted on github.
+
+Project link on Github: https://github.com/meghasankhlecha/fsf_2020_screening_task
+
+Created On: Feb 24, 2020
+
+Author: Megha Kailash Sankhlecha
+Username (fossee): 17dcs056
+Email: 17dcs056@charusat.edu.in
+
+The below code uses PEP 8 style guide for Python
+"""
+
 import os
 import sys
 from PyQt5 import uic
